@@ -1,0 +1,3 @@
+JMH S 19 com.hyx.MyBenchmark S 46 com.hyx.jmh_generated.MyBenchmark_test_jmhTest S 4 test S 11 AverageTime E A 1 1 1 E E E E E E E E E E E E E E U 12 MILLISECONDS E E 
+JMH S 19 com.hyx.MyBenchmark S 46 com.hyx.jmh_generated.MyBenchmark_test_jmhTest S 4 test S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 12 MILLISECONDS E E 
+JMH S 19 com.hyx.MyBenchmark S 46 com.hyx.jmh_generated.MyBenchmark_test_jmhTest S 4 test S 10 SampleTime E A 1 1 1 E E E E E E E E E E E E E E U 12 MILLISECONDS E E 

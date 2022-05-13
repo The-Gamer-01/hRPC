@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hyx</groupId>
+    <artifactId>hRPC</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>hRPC-framework-simple</module>
+        <module>hRPC-framework-common</module>
+        <module>example-api</module>
+        <module>example-client</module>
+        <module>example-server</module>
+        <module>hRPC-JMH</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <lombok.version>1.18.20</lombok.version>
+        <junit.version>4.13.1</junit.version>
+        <spring-core.version>5.2.12.RELEASE</spring-core.version>
+        <spring-context.version>5.2.7.RELEASE</spring-context.version>
+        <netty.version>4.1.61.Final</netty.version>
+        <log4j.version>1.7.26</log4j.version>
+    </properties>
+
+    <dependencies>
+        <!--test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <!--log4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

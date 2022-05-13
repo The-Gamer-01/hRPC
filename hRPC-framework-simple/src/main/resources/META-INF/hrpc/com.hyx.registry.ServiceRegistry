@@ -1,0 +1,1 @@
+zookeeper=com.hyx.registry.zookeeper.ZkServiceRegistryImpl
