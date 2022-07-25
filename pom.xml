@@ -20,8 +20,8 @@
     <properties>
         <lombok.version>1.18.20</lombok.version>
         <junit.version>4.13.1</junit.version>
-        <spring-core.version>5.2.12.RELEASE</spring-core.version>
-        <spring-context.version>5.2.7.RELEASE</spring-context.version>
+        <spring-core.version>5.2.20.RELEASE</spring-core.version>
+        <spring-context.version>5.2.21.RELEASE</spring-context.version>
         <netty.version>4.1.61.Final</netty.version>
         <log4j.version>1.7.26</log4j.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
