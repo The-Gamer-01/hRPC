@@ -17,10 +17,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 
 /**
+ * 代理模式在Bean初始化之前或者初始化之后运行代码.
  * @author 黄乙轩
  * @version 1.0
- * @className SpringBeanPostProcessor
- * @description 代理模式在Bean初始化之前或者初始化之后运行代码
  * @date 2022/5/9 22:22
  **/
 
@@ -28,6 +27,7 @@ import java.lang.reflect.Field;
 @Component
 public class SpringBeanPostProcessor implements BeanPostProcessor {
     private final ServiceProvider serviceProvider;
+    
     private final RpcRequestTransport rpcClient;
 
     public static void main(String[] args) {
@@ -41,7 +41,7 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if(bean.getClass().isAnnotationPresent(RpcService.class)) {
+        if (bean.getClass().isAnnotationPresent(RpcService.class)) {
             RpcService rpcService = bean.getClass().getAnnotation(RpcService.class);
             RpcServiceConfig rpcServiceConfig = RpcServiceConfig.builder()
                     .group(rpcService.group())
@@ -58,7 +58,7 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
         Field[] declaredFields = targetClass.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             RpcReference rpcReference = declaredField.getAnnotation(RpcReference.class);
-            if(rpcReference != null) {
+            if (rpcReference != null) {
                 RpcServiceConfig rpcServiceConfig = RpcServiceConfig.builder()
                         .group(rpcReference.group())
                         .version(rpcReference.version())

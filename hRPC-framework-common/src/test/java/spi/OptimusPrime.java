@@ -1,12 +1,9 @@
 package spi;
 
-import com.hyx.extension.SPI;
-
 /**
+ * A SPI Test.
  * @author 黄乙轩
  * @version 1.0
- * @className OptimusPrime
- * @description TODO
  * @date 2022/4/2 0:24
  **/
 

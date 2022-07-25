@@ -14,10 +14,9 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * 客户端代理类.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcClientProxy
- * @description 客户端代理类
  * @date 2022/4/19 18:20
  **/
 
@@ -55,8 +54,9 @@ public class RpcClientProxy implements InvocationHandler {
                 .requestId(UUID.randomUUID().toString())
                 .build();
         RpcResponse<Object> rpcResponse = null;
-        if(rpcRequestTransport instanceof NettyRpcClient) {
-            CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) rpcRequestTransport.sendRpcRequest(rpcRequest);
+        if (rpcRequestTransport instanceof NettyRpcClient) {
+            CompletableFuture<RpcResponse<Object>> completableFuture =
+                    (CompletableFuture<RpcResponse<Object>>) rpcRequestTransport.sendRpcRequest(rpcRequest);
             rpcResponse = completableFuture.get();
         }
         return rpcResponse.getData();

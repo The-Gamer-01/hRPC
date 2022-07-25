@@ -6,14 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 /**
+ * RPC请求.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcRequest
- * @description RPC请求
  * @date 2022/4/5 0:08
  **/
 
@@ -24,37 +21,37 @@ import java.util.concurrent.Future;
 public class RpcRequest implements Serializable {
 
     /**
-     * 请求编号
+     * 请求编号.
      */
     private String requestId;
 
     /**
-     * 接口名
+     * 接口名.
      */
     private String interfaceName;
 
     /**
-     * 方法名
+     * 方法名.
      */
     private String methodName;
 
     /**
-     * 参数值数组
+     * 参数值数组.
      */
     private Object[] parameters;
 
     /**
-     * 参数类数组
+     * 参数类数组.
      */
     private Class<?>[] paramTypes;
 
     /**
-     * 接口版本
+     * 接口版本.
      */
     private String version;
 
     /**
-     * 接口包
+     * 接口包.
      */
     private String group;
 

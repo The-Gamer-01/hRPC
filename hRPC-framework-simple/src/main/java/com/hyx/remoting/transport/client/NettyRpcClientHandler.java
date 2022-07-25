@@ -9,10 +9,9 @@ import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Netty客户端处理类.
  * @author 黄乙轩
  * @version 1.0
- * @className NettyRpcClientHandler
- * @description Netty客户端处理类
  * @date 2022/4/21 16:59
  **/
 
@@ -20,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class NettyRpcClientHandler extends ChannelInboundHandlerAdapter {
 
     private UnprocessedRequests unprocessedRequests;
+    
     private final NettyRpcClient nettyRpcClient;
 
     public NettyRpcClientHandler() {
@@ -31,7 +31,7 @@ public class NettyRpcClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
             log.info("msg:{}", msg);
-            if(msg instanceof RpcMessage) {
+            if (msg instanceof RpcMessage) {
                 RpcMessage temp = (RpcMessage) msg;
                 RpcResponse<Object> rpcResponse = (RpcResponse<Object>) temp.getData();
                 unprocessedRequests.complete(rpcResponse);

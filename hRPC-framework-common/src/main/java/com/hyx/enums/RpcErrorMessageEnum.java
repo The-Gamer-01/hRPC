@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * RpcErrorMessage枚举类.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcErrorMessageEnum
- * @description RpcErrorMessage枚举类
  * @date 2022/4/23 20:09
  **/
-
 @AllArgsConstructor
 @Getter
 @ToString

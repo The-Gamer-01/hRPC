@@ -1,4 +1,4 @@
-package com.hyx.serviceImpl;
+package com.hyx.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.hyx.Hello;
@@ -7,10 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
+ * HelloService实现类.
  * @author 黄乙轩
  * @version 1.0
- * @className HelloServiceImpl
- * @description TODO
  * @date 2022/5/10 11:15
  **/
 

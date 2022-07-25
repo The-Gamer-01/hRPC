@@ -7,10 +7,9 @@ import org.apache.curator.framework.CuratorFramework;
 import java.net.InetSocketAddress;
 
 /**
+ * Zookeeper注册中心获取客户端.
  * @author 黄乙轩
  * @version 1.0
- * @className ZkServiceRegistry
- * @description Zookeeper注册中心获取客户端
  * @date 2022/5/10 10:34
  **/
 

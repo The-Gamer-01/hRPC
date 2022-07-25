@@ -8,13 +8,11 @@ import com.hyx.remoting.dto.RpcRequest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.concurrent.CompletableFuture;
 
 /**
+ * RpcRequest处理类.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcRequestHandler
- * @description RpcRequest处理类
  * @date 2022/4/22 13:16
  **/
 
@@ -32,7 +30,7 @@ public class RpcRequestHandler {
     }
 
     /**
-     * 获取方法执行结果
+     * 获取方法执行结果.
      * @param rpcRequest rpcRequest
      * @param service service对象
      * @return 执行结果

@@ -6,24 +6,20 @@ import com.hyx.exception.RpcException;
 import com.hyx.extension.ExtensionLoader;
 import com.hyx.provider.ServiceProvider;
 import com.hyx.registry.ServiceRegistry;
-import com.hyx.registry.zookeeper.ZkServiceDiscoveryImpl;
-import com.hyx.remoting.transport.client.NettyRpcClient;
 import com.hyx.remoting.transport.server.netty.NettyServer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Zookeeper相关服务提供列.
  * @author 黄乙轩
  * @version 1.0
- * @className ZkServiceProviderImpl
- * @description Zookeeper相关服务提供列
  * @date 2022/4/23 19:01
  **/
 
@@ -31,17 +27,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ZkServiceProviderImpl implements ServiceProvider {
 
     /**
-     * serviceName -> serviceObject服务名映射服务对象
+     * serviceName -> serviceObject服务名映射服务对象.
      */
     private final Map<String, Object> serviceMap;
 
     /**
-     * 已注册服务
+     * 已注册服务.
      */
     private final Set<String> registeredService;
 
     /**
-     * 服务注册中心
+     * 服务注册中心.
      */
     private final ServiceRegistry serviceRegistry;
 
@@ -55,8 +51,8 @@ public class ZkServiceProviderImpl implements ServiceProvider {
     public void addService(RpcServiceConfig rpcServiceConfig) {
         String rpcServiceName = rpcServiceConfig.getRpcServiceName();
         //服务已经在集合中
-        if(registeredService.contains(rpcServiceName)) {
-            return ;
+        if (registeredService.contains(rpcServiceName)) {
+            return;
         }
         registeredService.add(rpcServiceName);
         serviceMap.put(rpcServiceName, rpcServiceConfig.getService());
@@ -67,7 +63,7 @@ public class ZkServiceProviderImpl implements ServiceProvider {
     public Object getService(String rpcServiceName) {
         Object service = serviceMap.get(rpcServiceName);
         //获取服务失败
-        if(null == service) {
+        if (null == service) {
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);
         }
         return service;
@@ -78,7 +74,7 @@ public class ZkServiceProviderImpl implements ServiceProvider {
         try {
             String host = InetAddress.getLocalHost().getHostAddress();
             this.addService(rpcServiceConfig);
-            serviceRegistry.registerService(rpcServiceConfig.getRpcServiceName(), new InetSocketAddress(host, NettyServer.port));
+            serviceRegistry.registerService(rpcServiceConfig.getRpcServiceName(), new InetSocketAddress(host, NettyServer.PORT));
         } catch (UnknownHostException e) {
             log.error("获取地址时异常", e);
         }

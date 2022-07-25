@@ -13,10 +13,9 @@ import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.stereotype.Component;
 
 /**
+ * 普通扫描接口.
  * @author 黄乙轩
  * @version 1.0
- * @className CustomScannerRegister
- * @description
  * @date 2022/5/9 22:13
  **/
 
@@ -36,17 +35,18 @@ public class CustomScannerRegister implements ImportBeanDefinitionRegistrar, Res
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        AnnotationAttributes rpcScanAnnotationAttributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(RpcScan.class.getName()));
+        AnnotationAttributes rpcScanAnnotationAttributes =
+                AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(RpcScan.class.getName()));
         String[] rpcScanBasePackages = new String[0];
-        if(rpcScanAnnotationAttributes != null) {
+        if (rpcScanAnnotationAttributes != null) {
             rpcScanBasePackages = rpcScanAnnotationAttributes.getStringArray(BASE_PACKAGE_ATTRIBUTE_NAME);
         }
-        if(rpcScanBasePackages.length == 0) {
+        if (rpcScanBasePackages.length == 0) {
             rpcScanBasePackages = new String[]{((StandardAnnotationMetadata) annotationMetadata).getIntrospectedClass().getPackage().getName()};
         }
         CustomScanner rpcServiceScanner = new CustomScanner(beanDefinitionRegistry, RpcService.class);
         CustomScanner springBeanScanner = new CustomScanner(beanDefinitionRegistry, Component.class);
-        if(resourceLoader != null) {
+        if (resourceLoader != null) {
             rpcServiceScanner.setResourceLoader(resourceLoader);
             springBeanScanner.setResourceLoader(resourceLoader);
         }

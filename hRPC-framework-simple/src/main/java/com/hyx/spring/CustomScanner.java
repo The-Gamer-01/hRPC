@@ -7,10 +7,9 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import java.lang.annotation.Annotation;
 
 /**
+ * 普通扫描类.
  * @author 黄乙轩
  * @version 1.0
- * @className CustomScanner
- * @description 普通扫描类
  * @date 2022/5/9 22:17
  **/
 

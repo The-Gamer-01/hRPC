@@ -15,10 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
+ * RpcMessage编码器.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcMessageEncoder
- * @description RpcMessage编码器
  * @date 2022/4/20 15:12
  **/
 
@@ -69,7 +68,7 @@ public class RpcMessageEncoder extends MessageToByteEncoder<RpcMessage> {
 
     private byte getSignByte(byte codec, byte compressCode, byte eventType, byte heartBeat) {
         byte signByte = 0x0;
-        signByte = BitUtils.setBit(signByte, 0, 4, codec, 4,4);
+        signByte = BitUtils.setBit(signByte, 0, 4, codec, 4, 4);
         signByte = BitUtils.setBit(signByte, 4, 2, compressCode, 6, 2);
         signByte = BitUtils.setBit(signByte, 6, 1, eventType, 7, 1);
         signByte = BitUtils.setBit(signByte, 7, 1, heartBeat, 7, 1);

@@ -4,10 +4,9 @@ import com.hyx.serialize.Serializer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * protobuf序列化方式.
  * @author 黄乙轩
  * @version 1.0
- * @className ProtostuffSerializer
- * @description protobuf序列化方式
  * @date 2022/5/23 18:28
  **/
 

@@ -9,23 +9,19 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
-import io.netty.util.concurrent.CompleteFuture;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * Netty服务端处理器.
  * @author 黄乙轩
  * @version 1.0
- * @className NettyServerHandler
- * @description Netty服务端处理器
  * @date 2022/4/22 13:14
  **/
 
 @Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     private final RpcRequestHandler rpcRequestHandler;
-
 
     public NettyServerHandler() {
         this.rpcRequestHandler = new RpcRequestHandler();
@@ -34,7 +30,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
-            if(msg instanceof RpcMessage) {
+            if (msg instanceof RpcMessage) {
                 log.info("server receive msg: [{}]", msg);
                 RpcMessage clientMsg = (RpcMessage) msg;
                 RpcRequest rpcRequest = (RpcRequest) clientMsg.getData();
@@ -47,7 +43,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 rpcMessage.setCodec(clientMsg.getCodec());
                 rpcMessage.setRequestId(clientMsg.getRequestId());
                 RpcResponse<Object> rpcResponse = null;
-                if(ctx.channel().isActive() && ctx.channel().isWritable()) {
+                if (ctx.channel().isActive() && ctx.channel().isWritable()) {
                     rpcResponse = RpcResponse.success(result, rpcRequest.getRequestId());
                 } else {
                     rpcResponse = RpcResponse.fail(result, null);

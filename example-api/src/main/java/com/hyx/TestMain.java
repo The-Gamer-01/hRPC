@@ -8,10 +8,9 @@ import com.hyx.proto.HelloProto;
 import java.util.Arrays;
 
 /**
+ * Main方法测试.
  * @author 黄乙轩
  * @version 1.0
- * @className TestMain
- * @description TODO
  * @date 2022/5/24 11:37
  **/
 

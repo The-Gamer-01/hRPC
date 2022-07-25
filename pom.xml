@@ -14,7 +14,6 @@
         <module>example-client</module>
         <module>example-server</module>
         <module>hRPC-JMH</module>
-        <module>spring-boot-starter-hRPC</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -25,6 +24,8 @@
         <spring-context.version>5.2.7.RELEASE</spring-context.version>
         <netty.version>4.1.61.Final</netty.version>
         <log4j.version>1.7.26</log4j.version>
+        <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+        <sonar-maven-plugin.version>3.0.2</sonar-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -49,4 +50,38 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>style/CheckStyle.xml</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <excludes>
+                        **/proto/**
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+        
+    </build>
 </project>

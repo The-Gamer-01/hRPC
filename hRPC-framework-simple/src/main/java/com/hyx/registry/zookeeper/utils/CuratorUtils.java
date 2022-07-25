@@ -15,10 +15,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Zookeeper Client工具类.
  * @author 黄乙轩
  * @version 1.0
- * @className CuratorUtils
- * @description Zookeeper Client工具类
  * @date 2022/4/23 19:07
  **/
 
@@ -26,18 +25,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CuratorUtils {
 
     /**
-     * ServiceName -> ServiceAddress List
+     * ServiceName -> ServiceAddress List.
      * 服务名对应服务地址列表
      */
     private static final Map<String, List<String>> SERVICE_ADDRESS_MAP = new ConcurrentHashMap<>();
 
     /**
-     * 服务前缀
+     * 服务前缀.
      */
     public static final String ZK_REGISTER_ROOT_PATH = "/hrpc";
 
     /**
-     * zookeeper client
+     * zookeeper client.
      */
     private static CuratorFramework zkClient;
 
@@ -49,10 +48,15 @@ public class CuratorUtils {
 
     private CuratorUtils() {
     }
-
+    
+    /**
+     * 创建节点.
+     * @param zkClient zookeeper客户端
+     * @param path 节点路径
+     */
     public static void createPersistentNode(CuratorFramework zkClient, String path) {
         try {
-            if(REGISTERED_PATH_SET.contains(path) || zkClient.checkExists().forPath(path) != null) {
+            if (REGISTERED_PATH_SET.contains(path) || zkClient.checkExists().forPath(path) != null) {
                 log.info("节点已经存在，节点为:{}", path);
             } else {
                 zkClient.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(path);
@@ -65,13 +69,12 @@ public class CuratorUtils {
     }
 
     /**
-     * 获取Service Address列表
+     * 获取Service Address列表.
      * @param zkClient Zookeeper Client
      * @param rpcServiceName 远程服务名
-     * @return
      */
     public static List<String> getChildrenNodes(CuratorFramework zkClient, String rpcServiceName) {
-        if(SERVICE_ADDRESS_MAP.containsKey(rpcServiceName)) {
+        if (SERVICE_ADDRESS_MAP.containsKey(rpcServiceName)) {
             return SERVICE_ADDRESS_MAP.get(rpcServiceName);
         }
         List<String> result = null;
@@ -87,7 +90,7 @@ public class CuratorUtils {
     }
 
     /**
-     * 获取Zookeeper客户端
+     * 获取Zookeeper客户端.
      * @return Zookeeper客户端
      */
     public static CuratorFramework getZkClient() {

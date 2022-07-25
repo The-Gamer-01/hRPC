@@ -1,17 +1,15 @@
 package com.hyx;
 
 import com.hyx.annotation.RpcScan;
-import com.hyx.annotation.RpcService;
 import com.hyx.config.RpcServiceConfig;
 import com.hyx.remoting.transport.server.netty.NettyServer;
-import com.hyx.serviceImpl.HelloServiceImpl;
+import com.hyx.service.impl.HelloServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
+ * Netty服务端启动类.
  * @author 黄乙轩
  * @version 1.0
- * @className NettyServerMain
- * @description TODO
  * @date 2022/5/10 11:17
  **/
 

@@ -8,7 +8,12 @@ import com.hyx.remoting.AbstractServer;
 import com.hyx.remoting.transport.codec.RpcMessageDecoder;
 import com.hyx.remoting.transport.codec.RpcMessageEncoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -18,16 +23,14 @@ import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Netty服务端.
  * @author 黄乙轩
  * @version 1.0
- * @className NettyServer
- * @description Netty服务端
  * @date 2022/4/19 11:12
  **/
 
@@ -35,21 +38,22 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class NettyServer extends AbstractServer {
     /**
-     * 服务端端口号
+     * 服务端端口号.
      */
-    public static final Integer port = 9898;
+    public static final Integer PORT = 9898;
 
     /**
-     * boss 线程组，用于服务端接收客户端连接
+     * boss 线程组，用于服务端接收客户端连接.
      */
     private EventLoopGroup bossGroup = new NioEventLoopGroup();
+    
     /**
-     * worker 线程组，用于服务端读写客户端数据
+     * worker 线程组，用于服务端读写客户端数据.
      */
     private EventLoopGroup workerGroup = new NioEventLoopGroup();
 
     /**
-     * Server Channel
+     * Server Channel.
      */
     private Channel channel;
 
@@ -68,7 +72,7 @@ public class NettyServer extends AbstractServer {
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .localAddress(new InetSocketAddress(port))
+                .localAddress(new InetSocketAddress(PORT))
                 .option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.TCP_NODELAY, true)
@@ -87,16 +91,16 @@ public class NettyServer extends AbstractServer {
                     }
                 });
         ChannelFuture future = bootstrap.bind().sync();
-//        if(future.isSuccess()) {
-//            channel = future.channel();
-//            log.info("[start][Netty Server 启动在 {} 端口]", port);
-//        }
+        if (future.isSuccess()) {
+            channel = future.channel();
+            log.info("[start][Netty Server 启动在 {} 端口]", PORT);
+        }
     }
 
     @Override
     @PreDestroy
     protected void doClose() {
-        if(channel != null) {
+        if (channel != null) {
             channel.close();
         }
         bossGroup.shutdownGracefully();

@@ -1,12 +1,15 @@
 package com.hyx;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
+ * Hello 实体类.
  * @author 黄乙轩
  * @version 1.0
- * @className com.hyx.Hello
- * @description TODO
  * @date 2022/5/10 10:59
  **/
 
@@ -17,5 +20,6 @@ import lombok.*;
 @AllArgsConstructor
 public class Hello {
     private String message;
+    
     private String description;
 }

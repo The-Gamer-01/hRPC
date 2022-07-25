@@ -14,20 +14,16 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-
 /**
+ * RpcMessageDecoder解码器.
  * @author 黄乙轩
  * @version 1.0
- * @className RpcMessageDecoder
- * @description RpcMessageDecoder解码器
  * @date 2022/4/20 15:11
  **/
 
 @Slf4j
 public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
-
-
+    
     public RpcMessageDecoder() {
         this(RpcConstants.MAX_FRAME_LENGTH,
                 7, 4,
@@ -42,7 +38,7 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         Object decoded = super.decode(ctx, in);
-        if(decoded instanceof ByteBuf) {
+        if (decoded instanceof ByteBuf) {
             ByteBuf frame = (ByteBuf) decoded;
             try {
                 return decodeFrame(frame);
@@ -64,7 +60,7 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
         //检验扩展位
         checkExtend(in);
         //获取请求编号
-        int requestId = in.readInt();
+        final int requestId = in.readInt();
         //获取数据长度
         int bodyLength = in.readInt();
         //读取数据
@@ -72,12 +68,12 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
         in.readBytes(body);
         Serializer serializer = getSerializer(signByte);
         RpcMessage rpcMessage = null;
-        if(msgType == RpcConstants.REQUEST_EVENT) {
+        if (msgType == RpcConstants.REQUEST_EVENT) {
             RpcRequest rpcRequest = serializer.deserialize(body, RpcRequest.class);
             rpcMessage = new RpcMessage<RpcRequest>();
             rpcMessage.setData(rpcRequest);
             rpcMessage.setMessageType(RpcConstants.REQUEST_EVENT);
-        } else if(msgType == RpcConstants.RESPONSE_EVENT) {
+        } else if (msgType == RpcConstants.RESPONSE_EVENT) {
             RpcResponse rpcResponse = serializer.deserialize(body, RpcResponse.class);
             rpcMessage = new RpcMessage<RpcResponse>();
             rpcMessage.setData(rpcResponse);
@@ -93,21 +89,19 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
     }
 
     /**
-     * 检查魔数判断报文格式是否正确
+     * 检查魔数判断报文格式是否正确.
      * @param in 缓冲流
      */
     private void checkMagicNumber(ByteBuf in) {
         byte magicNumber = in.readByte();
-        if(magicNumber != RpcConstants.MAGIC_NUMBER) {
+        if (magicNumber != RpcConstants.MAGIC_NUMBER) {
             throw new IllegalStateException("魔数错误：:" + magicNumber);
         }
     }
 
-
     /**
-     * 检查扩展位
+     * 检查扩展位.
      * @param in 缓冲流
-     * TODO 扩展位暂时为0x0
      */
     private void checkExtend(ByteBuf in) {
         byte extendCode = in.readByte();
@@ -117,7 +111,7 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
         byte codec = getCodec(signByte);
         String codecName = SerializationTypeEnum.getName(codec);
         Serializer extension = ExtensionLoader.getExtensionLoader(Serializer.class).getExtension(codecName);
-        if(extension == null) {
+        if (extension == null) {
             throw new SerialException("操作不到序列化方法：" + codecName);
         }
         return extension;

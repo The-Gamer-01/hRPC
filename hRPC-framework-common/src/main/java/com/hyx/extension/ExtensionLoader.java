@@ -13,26 +13,25 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * SPI的ExtensionLoader.
  * @author 黄乙轩
  * @version 1.0
- * @className ExtensionLoader
- * @description SPI的ExtensionLoader
  * @date 2022/3/31 0:36
  **/
-
 @Slf4j
 public class ExtensionLoader<T> {
 
     private static final ConcurrentHashMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>();
 
     private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<Class<?>, Object>();
+    
     /**
-     * 路径扫描前缀
+     * 路径扫描前缀.
      */
     private static final String RPC_INTERNAL_DIRECTORY = "META-INF/hrpc/";
 
     /**
-     * 读取的对象
+     * 读取的对象.
      */
     private final Class<?> type;
 
@@ -41,34 +40,33 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * 实例缓存
+     * 实例缓存.
      */
     private final ConcurrentHashMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
 
     private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 
     /**
-     * 获取ExtensionLoader
+     * 获取ExtensionLoader.
      * @param type 需要的Class
      * @param <S> 对应的Class
-     * @return
      */
     public static <S> ExtensionLoader<S> getExtensionLoader(Class<S> type) {
         //type不能为空
-        if(type == null) {
+        if (type == null) {
             throw new IllegalArgumentException("Extension type == null");
         }
         //@SPI修饰的是接口
-        if(!type.isInterface()) {
+        if (!type.isInterface()) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not interface");
         }
         //判断是否被@SPI修饰
-        if(!withExtensionAnnotation(type)) {
+        if (!withExtensionAnnotation(type)) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not extension, because WITHOUT @" + SPI.class.getSimpleName());
         }
         //获取clazz对应的Extension
         ExtensionLoader<S> loader = (ExtensionLoader<S>) EXTENSION_LOADERS.get(type);
-        if(loader == null) {
+        if (loader == null) {
             //第一次加载
             EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<>(type));
             loader = (ExtensionLoader<S>) EXTENSION_LOADERS.get(type);
@@ -77,37 +75,36 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * 判断是否被@SPI修饰
+     * 判断是否被@SPI修饰.
      * @param type 需要判断的Class
-     * @return
      */
     private static <T> boolean withExtensionAnnotation(Class<T> type) {
         return type.isAnnotationPresent(SPI.class);
     }
 
     /**
-     * 获取实例
+     * 获取实例.
      * @param name 需要获取的实例的映射名
      * @return 所需实例
      */
     public T getExtension(String name) {
-        if(name == null || name.length() == 0) {
+        if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Extension name == null");
         }
         //从缓存中取出Holder
         Holder<Object> holder = cachedInstances.get(name);
         //为空说明缓存中不存在，需要重新加载
-        if(holder == null) {
+        if (holder == null) {
             cachedInstances.putIfAbsent(name, new Holder<>());
             holder = cachedInstances.get(name);
         }
         //取出持有对象中的实例
         Object instance = holder.get();
         //双检锁创建实例
-        if(instance == null) {
+        if (instance == null) {
             synchronized (holder) {
                 instance = holder.get();
-                if(instance == null) {
+                if (instance == null) {
                     instance = createExtension(name);
                     holder.set(instance);
                 }
@@ -120,7 +117,7 @@ public class ExtensionLoader<T> {
         Class<?> clazz = getExtensionClasses().get(name);
         try {
             T instance = (T) EXTENSION_INSTANCES.get(clazz);
-            if(instance == null) {
+            if (instance == null) {
                 EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             }
@@ -132,10 +129,10 @@ public class ExtensionLoader<T> {
 
     private Map<String, Class<?>> getExtensionClasses() {
         Map<String, Class<?>> classes = cachedClasses.get();
-        if(classes == null) {
+        if (classes == null) {
             synchronized (cachedInstances) {
                 classes = cachedClasses.get();
-                if(classes == null) {
+                if (classes == null) {
                     classes = loadExtensionClasses();
                     cachedClasses.set(classes);
                 }
@@ -155,20 +152,20 @@ public class ExtensionLoader<T> {
         try {
             Enumeration<URL> urls;
             ClassLoader classLoader = findClassLoader();
-            if(classLoader != null) {
+            if (classLoader != null) {
                 urls = classLoader.getResources(fileName);
             } else {
                 urls = ClassLoader.getSystemResources(fileName);
             }
-            if(urls != null) {
-                while(urls.hasMoreElements()) {
+            if (urls != null) {
+                while (urls.hasMoreElements()) {
                     URL resourceURL = urls.nextElement();
                     loadResource(extensionClasses, classLoader, resourceURL);
                 }
             }
         } catch (Throwable t) {
-            log.error("Exception when load extension class(interface: " +
-                    type + ", description file: " + fileName + ")");
+            log.error("Exception when load extension class(interface: "
+                    + type + ", description file: " + fileName + ")");
         }
     }
 
@@ -177,18 +174,18 @@ public class ExtensionLoader<T> {
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream()));
             try {
                 String line;
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     line = line.trim();
-                    if(line.length() > 0) {
+                    if (line.length() > 0) {
                         try {
                             String name = null;
                             String val = null;
                             int index = line.indexOf('=');
-                            if(index > 0) {
+                            if (index > 0) {
                                 name = line.substring(0, index).trim();
                                 val = line.substring(index + 1).trim();
                             }
-                            if(val.length() > 0) {
+                            if (val.length() > 0) {
                                 loadClass(extensionClasses, resourceURL, Class.forName(val, true, classLoader), name);
                             }
                         } catch (Throwable t) {
@@ -206,7 +203,6 @@ public class ExtensionLoader<T> {
         }
     }
 
-
     private static ClassLoader findClassLoader() {
         return ExtensionLoader.class.getClassLoader();
     }
@@ -216,10 +212,8 @@ public class ExtensionLoader<T> {
             //检查clazz是否有空构造函数
             clazz.getConstructor();
             Class<?> c = extensionClasses.get(name);
-            if(c == null) {
+            if (c == null) {
                 extensionClasses.put(name, clazz);
-            } else if(c != clazz) {
-
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
