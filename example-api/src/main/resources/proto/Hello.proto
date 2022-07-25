@@ -1,0 +1,16 @@
+//使用proto3语法，未指定使用proto2
+syntax = "proto3";
+
+//生成proto文件所在包路径
+package com.hyx.proto;
+
+//生成proto文件所在包路径
+option java_package = "com.hyx.proto";
+
+//生成proto文件名
+option java_outer_classname = "HelloProto";
+
+message Hello {
+  string message = 1;
+  string description = 2;
+}

@@ -1,0 +1,20 @@
+server:
+  port: 9898
+spring:
+  dubbo:
+    application:
+      name: service-provider
+    base-package:
+      com.hyx
+    registry:
+      address: 175.178.86.148
+      port: 2181
+      protocol: zookeeper
+      register: true
+    protocol:
+      name: dubbo
+      port: 20880
+      accesslog: true
+    provider:
+      retries: 1
+      delay: -1

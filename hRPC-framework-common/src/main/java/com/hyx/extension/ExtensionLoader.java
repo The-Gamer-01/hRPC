@@ -152,11 +152,9 @@ public class ExtensionLoader<T> {
 
     private void loadDirectory(Map<String, Class<?>> extensionClasses, String dir) {
         String fileName = dir + type.getName();
-        System.out.println("fileName:" + fileName);
         try {
             Enumeration<URL> urls;
             ClassLoader classLoader = findClassLoader();
-            System.out.println(classLoader.getResource(fileName));
             if(classLoader != null) {
                 urls = classLoader.getResources(fileName);
             } else {
@@ -190,7 +188,6 @@ public class ExtensionLoader<T> {
                                 name = line.substring(0, index).trim();
                                 val = line.substring(index + 1).trim();
                             }
-                            System.out.println("name：" + name + "," + "val:" + val);
                             if(val.length() > 0) {
                                 loadClass(extensionClasses, resourceURL, Class.forName(val, true, classLoader), name);
                             }

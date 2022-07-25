@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+//生成proto文件所在包路径
+package com.hyx.proto;
+
+//生成proto文件所在包路径
+option java_package = "com.hyx.proto";
+
+option cc_generic_services = true;
+
+//生成proto文件名
+option java_outer_classname = "HelloServiceProto";
+
+
+message Hello {
+  string message = 1;
+  string description = 2;
+}
+
+message returnStr {
+  string str = 1;
+}
+
+service HelloService {
+  rpc hello (Hello) returns (returnStr);
+}

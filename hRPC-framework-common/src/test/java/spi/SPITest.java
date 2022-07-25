@@ -16,37 +16,4 @@ import java.util.Enumeration;
  **/
 
 public class SPITest {
-    @Test
-    public void testRobotSPI() {
-        ExtensionLoader<Robot> extensionLoader = ExtensionLoader.getExtensionLoader(Robot.class);
-        Robot optimusPrime = extensionLoader.getExtension("optimusPrime");
-        optimusPrime.sayHello();
-
-        Robot bumblebee = extensionLoader.getExtension("bumblebee");
-        bumblebee.sayHello();
-    }
-
-    @Test
-    public void classLoaderTest() throws IOException {
-        String dir = "META-INF/hrpc/";
-        String type = "com.hyx.Robot";
-        String fileName = dir + type;
-        ClassLoader classLoader = SPITest.class.getClassLoader();
-        System.out.println(classLoader.getResource(fileName));
-        Enumeration<URL> resources = classLoader.getResources(fileName);
-        while (resources.hasMoreElements()) {
-            URL resourceURL = resources.nextElement();
-            System.out.println("???");
-        }
-    }
-
-    @Test
-    public void getResourceTest() {
-        ClassLoader classLoader = SPITest.class.getClassLoader();
-        System.out.println(classLoader.getResource(""));
-        System.out.println(classLoader.getResource("/"));
-        System.out.println(classLoader.getResource("SPITest.class"));
-        System.out.println(classLoader.getResource("/SPITest.class"));
-        System.out.println(classLoader.getResource("META-INF/hrpc"));
-    }
 }

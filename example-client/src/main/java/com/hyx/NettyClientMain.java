@@ -1,6 +1,7 @@
 package com.hyx;
 
 import com.hyx.annotation.RpcScan;
+import com.hyx.controller.HelloController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -19,7 +20,9 @@ public class NettyClientMain {
     public static void main(String[] args) throws InterruptedException {
 //        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(NettyClientMain.class);
 //        HelloController helloController = (HelloController) applicationContext.getBean("helloController");
-//        helloController.test();
+//        for(int i = 0; i < 10; i++) {
+//            helloController.test();
+//        }
         SpringApplication.run(NettyClientMain.class, args);
     }
 }

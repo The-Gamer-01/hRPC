@@ -1,8 +1,10 @@
 package com.hyx.serviceImpl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.hyx.Hello;
 import com.hyx.HelloService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * @author 黄乙轩
@@ -13,10 +15,9 @@ import lombok.extern.slf4j.Slf4j;
  **/
 
 @Slf4j
+@Component
+@Service(version = "version1")
 public class HelloServiceImpl implements HelloService {
-    static {
-        log.info("HelloServiceImpl被创建");
-    }
 
     @Override
     public String hello(Hello hello) {

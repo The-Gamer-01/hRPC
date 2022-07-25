@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  dubbo:
+    application:
+      name: service-consumer
+    base-package:
+      com.hyx
+    registry:
+      address: 175.178.86.148
+      port: 2181
+      protocol: zookeeper
+      subscribe: true
+    protocol:
+      name: dubbo
+      host: 175.178.86.148
+    consumer:
+      timeout: 1000
+      check: false
+      retries: 2

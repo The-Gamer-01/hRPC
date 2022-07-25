@@ -13,6 +13,7 @@
         <module name="hRPC-JMH" />
         <module name="hRPC-framework-common" />
         <module name="example-client" />
+        <module name="spring-boot-starter-hRPC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

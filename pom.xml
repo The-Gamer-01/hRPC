@@ -14,6 +14,7 @@
         <module>example-client</module>
         <module>example-server</module>
         <module>hRPC-JMH</module>
+        <module>spring-boot-starter-hRPC</module>
     </modules>
     <packaging>pom</packaging>
 

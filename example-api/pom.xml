@@ -11,5 +11,22 @@
 
     <artifactId>example-api</artifactId>
 
+    <properties>
+        <protobuf.version>3.15.3</protobuf.version>
+    </properties>
+
+    <dependencies>
+        <!--protobuf-->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

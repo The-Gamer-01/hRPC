@@ -1,8 +1,0 @@
-com\hyx\utils\BitUtils.class
-com\hyx\enums\RpcErrorMessageEnum.class
-com\hyx\exception\SerialException.class
-com\hyx\extension\SPI.class
-com\hyx\exception\RpcException.class
-com\hyx\extension\ExtensionLoader.class
-com\hyx\utils\Holder.class
-com\hyx\enums\SerializationTypeEnum.class

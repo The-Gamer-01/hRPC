@@ -1,0 +1,54 @@
+//使用proto3语法，未指定使用proto2
+syntax = "proto3";
+
+import "google/protobuf/type.proto";
+
+//生成proto文件所在包路径
+package com.hyx.proto;
+
+//生成proto文件所在包路径
+option java_package = "com.hyx.proto";
+
+//生成proto文件名
+option java_outer_classname = "RequestProto";
+
+message Request {
+  string requestId = 1;
+  string interfaceName = 2;
+  string methodName = 3;
+  repeated
+}
+///**
+//     * 请求编号
+//     */
+//    private String requestId;
+//
+///**
+// * 接口名
+// */
+//    private String interfaceName;
+//
+///**
+// * 方法名
+// */
+//    private String methodName;
+//
+///**
+// * 参数值数组
+// */
+//    private Object[] parameters;
+//
+///**
+// * 参数类数组
+// */
+//    private Class<?>[] paramTypes;
+//
+///**
+// * 接口版本
+// */
+//    private String version;
+//
+///**
+// * 接口包
+// */
+//    private String group;
