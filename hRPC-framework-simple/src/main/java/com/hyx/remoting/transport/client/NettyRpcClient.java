@@ -61,7 +61,7 @@ public class NettyRpcClient implements RpcRequestTransport {
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
+                    protected void initChannel(SocketChannel socketChannel) {
                         ChannelPipeline pipeline = socketChannel.pipeline();
                         pipeline.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS))
                                 .addLast(new RpcMessageEncoder())
@@ -105,7 +105,7 @@ public class NettyRpcClient implements RpcRequestTransport {
     @Override
     public Object sendRpcRequest(RpcRequest rpcRequest) {
         CompletableFuture<RpcResponse<Object>> resultFuture = new CompletableFuture<>();
-        InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", 9898);
+        InetSocketAddress inetSocketAddress = serviceDiscovery.lookUpService(rpcRequest);
         Channel channel = getChannel(inetSocketAddress);
         if (channel.isActive()) {
             unprocessedRequests.put(rpcRequest.getRequestId(), resultFuture);
