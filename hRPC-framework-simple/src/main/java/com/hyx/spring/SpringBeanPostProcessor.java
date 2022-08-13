@@ -7,7 +7,7 @@ import com.hyx.extension.ExtensionLoader;
 import com.hyx.factory.SingletonFactory;
 import com.hyx.provider.ServiceProvider;
 import com.hyx.provider.impl.ZkServiceProviderImpl;
-import com.hyx.proxy.RpcClientProxy;
+import com.hyx.proxy.dynamic.RpcClientProxy;
 import com.hyx.remoting.RpcRequestTransport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -29,10 +29,6 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
     private final ServiceProvider serviceProvider;
     
     private final RpcRequestTransport rpcClient;
-
-    public static void main(String[] args) {
-        ServiceProvider instance = SingletonFactory.getInstance(ZkServiceProviderImpl.class);
-    }
 
     public SpringBeanPostProcessor() {
         this.serviceProvider = SingletonFactory.getInstance(ZkServiceProviderImpl.class);

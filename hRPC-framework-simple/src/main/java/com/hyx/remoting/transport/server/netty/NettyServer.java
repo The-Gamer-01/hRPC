@@ -45,12 +45,12 @@ public class NettyServer extends AbstractServer {
     /**
      * boss 线程组，用于服务端接收客户端连接.
      */
-    private EventLoopGroup bossGroup = new NioEventLoopGroup();
+    private final EventLoopGroup bossGroup = new NioEventLoopGroup();
     
     /**
      * worker 线程组，用于服务端读写客户端数据.
      */
-    private EventLoopGroup workerGroup = new NioEventLoopGroup();
+    private final EventLoopGroup workerGroup = new NioEventLoopGroup();
 
     /**
      * Server Channel.
@@ -79,7 +79,7 @@ public class NettyServer extends AbstractServer {
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
+                    protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
                         //RpcMessage编码器

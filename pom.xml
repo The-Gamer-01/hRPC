@@ -82,6 +82,5 @@
                 <version>${sonar-maven-plugin.version}</version>
             </plugin>
         </plugins>
-        
     </build>
 </project>

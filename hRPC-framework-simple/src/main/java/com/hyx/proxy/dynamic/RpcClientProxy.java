@@ -1,4 +1,4 @@
-package com.hyx.proxy;
+package com.hyx.proxy.dynamic;
 
 import com.hyx.config.RpcServiceConfig;
 import com.hyx.remoting.RpcRequestTransport;
