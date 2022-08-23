@@ -15,6 +15,8 @@ import java.util.TreeMap;
 
 public class ConsistentHashBalance implements LoadBalance {
     
+    private String name = "consistent_hash";
+    
     TreeMap<Integer, String> map = new TreeMap<>();
     
     private static final Integer VIRTUAL_NODE_SIZE = 10;
@@ -26,6 +28,11 @@ public class ConsistentHashBalance implements LoadBalance {
         int hashCode = rpcRequest.hashCode();
         TreeMap<Integer, String> ring = buildConsistentHashRing(serviceAddresses);
         return locate(ring, hashCode);
+    }
+    
+    @Override
+    public String name() {
+        return name;
     }
     
     /**

@@ -21,4 +21,10 @@ public interface LoadBalance {
      * @return 选取后的地址
      */
     String selectServiceAddress(List<String> serviceAddresses, RpcRequest rpcRequest);
+    
+    /**
+     * 获取负载均衡算法名.
+     * @return 负载均衡算法名.
+     */
+    String name();
 }

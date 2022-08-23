@@ -1,0 +1,2 @@
+random=com.hyx.loadbalance.impl.RandomLoadBalance
+consistent_hash=com.hyx.loadbalance.impl.ConsistentHashBalance

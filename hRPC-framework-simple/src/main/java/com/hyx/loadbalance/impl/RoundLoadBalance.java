@@ -11,12 +11,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author hyx
  **/
 
-public abstract class RoundLoadBalance implements LoadBalance {
+public class RoundLoadBalance implements LoadBalance {
+    
+    private String name = "round";
     
     private AtomicInteger index = new AtomicInteger(0);
     
     @Override
     public String selectServiceAddress(List<String> serviceAddresses, RpcRequest rpcRequest) {
         return serviceAddresses.get(index.incrementAndGet() % serviceAddresses.size());
+    }
+    
+    @Override
+    public String name() {
+        return name;
     }
 }

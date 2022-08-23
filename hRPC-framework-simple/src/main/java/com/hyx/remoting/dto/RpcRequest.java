@@ -54,6 +54,11 @@ public class RpcRequest implements Serializable {
      * 接口包.
      */
     private String group;
+    
+    /**
+     * 权重.
+     */
+    private Integer weight;
 
     public String getRpcServiceName() {
         return this.getInterfaceName() + this.getGroup() + this.getVersion();

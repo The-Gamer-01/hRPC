@@ -2,6 +2,7 @@ package com.hyx.registry.zookeeper;
 
 import com.hyx.enums.RpcErrorMessageEnum;
 import com.hyx.exception.RpcException;
+import com.hyx.extension.ExtensionLoader;
 import com.hyx.loadbalance.impl.RandomLoadBalance;
 import com.hyx.loadbalance.LoadBalance;
 import com.hyx.registry.ServiceDiscovery;
@@ -24,7 +25,7 @@ public class ZkServiceDiscoveryImpl implements ServiceDiscovery {
     private final LoadBalance loadBalance;
 
     public ZkServiceDiscoveryImpl() {
-        this.loadBalance = new RandomLoadBalance();
+        this.loadBalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("random");
     }
 
     @Override
