@@ -39,7 +39,7 @@ public class RpcServiceConfig<T> {
      * @return 服务名称
      */
     public String getRpcServiceName() {
-        return this.getServiceName() + this.getGroup() + this.getVersion();
+        return this.getServiceName() + "/" + this.getGroup() + "/" + this.getVersion();
     }
 
     /**

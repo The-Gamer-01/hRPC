@@ -1,5 +1,7 @@
 package com.hyx.remoting.transport.server.netty;
 
+import com.hyx.extension.ExtensionLoader;
+import com.hyx.registry.ServiceRegistry;
 import com.hyx.remoting.constants.RpcConstants;
 import com.hyx.remoting.dto.RpcMessage;
 import com.hyx.remoting.dto.RpcRequest;
@@ -8,6 +10,7 @@ import com.hyx.remoting.handler.RpcRequestHandler;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,8 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
+    
     private final RpcRequestHandler rpcRequestHandler;
-
+    
     public NettyServerHandler() {
         this.rpcRequestHandler = new RpcRequestHandler();
     }
@@ -62,5 +66,14 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         log.error("server catch exception");
         cause.printStackTrace();
         ctx.close();
+    }
+    
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if(evt instanceof IdleStateEvent) {
+            ctx.close();
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
     }
 }

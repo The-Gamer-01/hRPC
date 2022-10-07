@@ -14,9 +14,9 @@
     <properties>
         <curator.version>5.1.0</curator.version>
         <kryo.version>4.0.2</kryo.version>
-        <protobuf.version>3.15.3</protobuf.version>
         <cglib.version>3.3.0</cglib.version>
         <jackson.version>2.10.1</jackson.version>
+        <protostuff.version>1.6.0</protostuff.version>
     </properties>
 
     <dependencies>
@@ -45,14 +45,14 @@
         </dependency>
         <!--protobuf-->
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${protobuf.version}</version>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java-util</artifactId>
-            <version>${protobuf.version}</version>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
         </dependency>
         <!--spring版本-->
         <dependency>
@@ -75,6 +75,12 @@
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
             <version>0.10</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

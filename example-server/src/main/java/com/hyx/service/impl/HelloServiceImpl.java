@@ -1,8 +1,8 @@
 package com.hyx.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.hyx.Hello;
 import com.hyx.HelloService;
+import com.hyx.annotation.RpcReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Service(version = "version1")
 public class HelloServiceImpl implements HelloService {
 
     @Override
+    @RpcReference(group = "test1", version = "version1")
     public String hello(Hello hello) {
-        String result = "Hello description is " + hello.getDescription();
-        return result;
+        return "Hello description is " + hello.getDescription();
     }
 }

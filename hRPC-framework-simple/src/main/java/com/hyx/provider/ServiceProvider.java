@@ -3,6 +3,8 @@ package com.hyx.provider;
 import com.hyx.config.RpcServiceConfig;
 import com.hyx.extension.SPI;
 
+import java.net.InetSocketAddress;
+
 /**
  * 服务提供接口.
  * @author 黄乙轩

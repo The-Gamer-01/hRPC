@@ -1,5 +1,6 @@
 package com.hyx.registry.zookeeper;
 
+import com.hyx.URL;
 import com.hyx.registry.ServiceRegistry;
 import com.hyx.registry.zookeeper.utils.CuratorUtils;
 import org.apache.curator.framework.CuratorFramework;
@@ -16,6 +17,7 @@ import java.net.InetSocketAddress;
 public class ZkServiceRegistryImpl implements ServiceRegistry {
     @Override
     public void registerService(String serviceName, InetSocketAddress address) {
+        URL url = new URL();
         String servicePath = CuratorUtils.ZK_REGISTER_ROOT_PATH + "/" + serviceName + address.toString();
         CuratorFramework zkClient = CuratorUtils.getZkClient();
         CuratorUtils.createPersistentNode(zkClient, servicePath);

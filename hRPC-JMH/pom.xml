@@ -36,7 +36,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
     <groupId>com.hyx</groupId>
     <artifactId>hRPC-JMH</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>hRPC-JMH-server</module>
+        <module>hRPC-JMH-client</module>
+        <module>hPRC-JMH-api</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>JMH benchmark sample: Java</name>
 

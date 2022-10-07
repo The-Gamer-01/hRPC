@@ -81,7 +81,7 @@ public class NettyServer extends AbstractServer {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
+                        pipeline.addLast(new IdleStateHandler(0, 0, 200));
                         //RpcMessage编码器
                         pipeline.addLast(new RpcMessageEncoder());
                         //RpcMessage解码器

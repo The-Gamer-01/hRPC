@@ -4,13 +4,18 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.hyx.exception.SerialException;
+import com.hyx.extension.ExtensionLoader;
 import com.hyx.remoting.dto.RpcRequest;
 import com.hyx.remoting.dto.RpcResponse;
 import com.hyx.serialize.Serializer;
 import lombok.extern.slf4j.Slf4j;
+import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Kryo序列化方法.
@@ -28,6 +33,9 @@ public class KryoSerializer implements Serializer {
         Kryo kryo = new Kryo();
         kryo.register(RpcRequest.class);
         kryo.register(RpcResponse.class);
+        kryo.setInstantiatorStrategy(new Kryo.DefaultInstantiatorStrategy(
+                new StdInstantiatorStrategy()
+        ));
         return kryo;
     });
 
@@ -60,5 +68,4 @@ public class KryoSerializer implements Serializer {
             throw new SerialException("反序列化失败");
         }
     }
-
 }
